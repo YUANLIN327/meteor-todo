@@ -65,6 +65,7 @@ class App extends Component {
 }
 
 export default withTracker(() => {
+    Meteor.subscribe('tasks');
     return {
         tasks: Meteor.user() && Tasks.find({ owner: Meteor.userId() }, { sort: { createAt: -1 } }).fetch() || [],
         incompleteCount: Meteor.user() && Tasks.find({ owner: Meteor.userId(), checked: { $ne: true } }).count() || 0,
