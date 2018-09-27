@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { withTracker } from 'meteor/react-meteor-data';
-
 import { Tasks } from '../api/tasks.js';
 import Task from './Task.js';
+import AccountsUIWrapper from './AccountsUIWrapper.js';
 
 // App component - represents the whole app
 class App extends Component {
@@ -24,7 +24,10 @@ class App extends Component {
     handleFormSubmit(event) {
         event.preventDefault();
         const text = this.inputRef.current.value.trim();
-        Tasks.insert({ text, createAt: Date.now() });
+        Tasks.insert({ 
+             text,
+             createAt: Date.now()
+             });
         this.inputRef.current.value = '';
     }
 
@@ -49,6 +52,7 @@ class App extends Component {
                         />
                         Hide Completed Tasks
                     </label>
+                    <AccountsUIWrapper />
                     <form onSubmit={this.handleFormSubmit.bind(this)}>
                         <input type="text" ref={this.inputRef} placeholder="add some todo"></input>
                     </form>
