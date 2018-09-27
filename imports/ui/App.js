@@ -25,12 +25,7 @@ class App extends Component {
     handleFormSubmit(event) {
         event.preventDefault();
         const text = this.inputRef.current.value.trim();
-        Tasks.insert({
-            text,
-            createAt: Date.now(),
-            owner: Meteor.userId(),
-            username: Meteor.user().username,
-        });
+        Meteor.call('tasks.insert', text);
         this.inputRef.current.value = '';
     }
 
