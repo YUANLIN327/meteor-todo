@@ -12,7 +12,7 @@ export const renderRoutes = () => (
     <Router history={browserHistory}>
         <Switch>
             <Route exact path="/" component={AppContainer} />
-            <Route exact path="/detail-todo" component={DetailTodo} />
+            <Route path="/todo/:todoId" component={DetailTodo} />
         </Switch>
     </Router>
 );
