@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Tasks } from '../api/tasks.js';
 import Task from './Task.js';
@@ -24,10 +25,12 @@ class App extends Component {
     handleFormSubmit(event) {
         event.preventDefault();
         const text = this.inputRef.current.value.trim();
-        Tasks.insert({ 
-             text,
-             createAt: Date.now()
-             });
+        Tasks.insert({
+            text,
+            createAt: Date.now(),
+            owner: Meteor.userId(),
+            username: Meteor.user().username,
+        });
         this.inputRef.current.value = '';
     }
 
@@ -53,9 +56,9 @@ class App extends Component {
                         Hide Completed Tasks
                     </label>
                     <AccountsUIWrapper />
-                    <form onSubmit={this.handleFormSubmit.bind(this)}>
+                    {this.props.currentUser ? <form onSubmit={this.handleFormSubmit.bind(this)}>
                         <input type="text" ref={this.inputRef} placeholder="add some todo"></input>
-                    </form>
+                    </form> : ''}
                 </header>
 
                 <ul>
@@ -70,5 +73,6 @@ export default withTracker(() => {
     return {
         tasks: Tasks.find({}, { sort: { createAt: -1 } }).fetch(),
         incompleteCount: Tasks.find({ checked: { $ne: true } }).count(),
+        currentUser: Meteor.user(),
     }
 })(App)
