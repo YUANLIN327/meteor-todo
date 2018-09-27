@@ -61,9 +61,9 @@ class App extends Component {
                     </form> : ''}
                 </header>
 
-                <ul>
+                {this.props.currentUser && <ul>
                     {this.renderTasks()}
-                </ul>
+                </ul>}
             </div>
         );
     }
@@ -71,8 +71,8 @@ class App extends Component {
 
 export default withTracker(() => {
     return {
-        tasks: Tasks.find({}, { sort: { createAt: -1 } }).fetch(),
-        incompleteCount: Tasks.find({ checked: { $ne: true } }).count(),
+        tasks: Meteor.user() && Tasks.find({ owner: Meteor.userId() }, { sort: { createAt: -1 } }).fetch() || [],
+        incompleteCount: Meteor.user() && Tasks.find({ owner: Meteor.userId(), checked: { $ne: true } }).count() || 0,
         currentUser: Meteor.user(),
     }
 })(App)
