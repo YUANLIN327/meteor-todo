@@ -65,7 +65,7 @@ class App extends Component {
     }
 }
 
-export default withTracker(() => {
+export default AppContainer = withTracker(() => {
     Meteor.subscribe('tasks');
     return {
         tasks: Tasks.find({}, { sort: { createAt: -1 } }).fetch() || [],
