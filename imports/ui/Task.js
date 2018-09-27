@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Meteor } from 'meteor/meteor';
 import { Tasks } from '../api/tasks';
+import '../styles/task.scss';
 
 // Task component - represents a single todo item
 export default class Task extends Component {

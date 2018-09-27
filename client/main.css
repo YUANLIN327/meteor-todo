@@ -89,14 +89,7 @@ li .text {
   margin-left: 10px;
 }
  
-li.checked {
-  color: #888;
-}
- 
-li.checked .text {
-  text-decoration: line-through;
-}
- 
+
 li.private {
   background: #eee;
   border-color: #ddd;
