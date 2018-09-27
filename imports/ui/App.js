@@ -17,8 +17,9 @@ class App extends Component {
     }
 
     renderTasks() {
+        const userId = Meteor.userId();
         return this.props.tasks.filter(task => this.state.hideCompleted ? !task.checked : true).map((task) => (
-            <Task key={task._id} task={task} />
+            <Task key={task._id} task={task} isOwner={userId === task.owner} />
         ));
     }
 
@@ -67,8 +68,8 @@ class App extends Component {
 export default withTracker(() => {
     Meteor.subscribe('tasks');
     return {
-        tasks: Meteor.user() && Tasks.find({ owner: Meteor.userId() }, { sort: { createAt: -1 } }).fetch() || [],
-        incompleteCount: Meteor.user() && Tasks.find({ owner: Meteor.userId(), checked: { $ne: true } }).count() || 0,
+        tasks: Tasks.find({}, { sort: { createAt: -1 } }).fetch() || [],
+        incompleteCount: Tasks.find({ checked: { $ne: true } }).count() || 0,
         currentUser: Meteor.user(),
     }
 })(App)
