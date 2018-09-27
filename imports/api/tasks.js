@@ -12,7 +12,7 @@ Meteor.methods({
             text,
             createdAt: Date.now(),
             owner: this.userId,
-            username: Meteor.users.findOne(this.userId).userId
+            username: Meteor.users.findOne(this.userId).username
         });
     },
     'tasks.remove'(taskId) {
