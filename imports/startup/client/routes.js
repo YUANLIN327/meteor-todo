@@ -10,6 +10,6 @@ const browserHistory = createBrowserHistory();
 
 export const renderRoutes = () => (
   <Router>
-    <Route exact path="/" component={AppContainer}/>
+    <Route path="/" component={AppContainer}/>
   </Router>
 );
